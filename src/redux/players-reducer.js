@@ -2,8 +2,8 @@ const MOVE_PLAYER = 'MOVE-PLAYER';
 
 let initStore = {
     playersArr: [
-        { _id: "1", name: "player name", xPos: 10, yPos: 0, skin: "http://konvajs.github.io/assets/yoda.jpg" },
-        { _id: "2", name: "player name", xPos: 0, yPos: 0, skin: "http://konvajs.github.io/assets/yoda.jpg" }
+        { _id: "1", name: "player name", xPos: 10, yPos: 0, direction: -1, skin: "peasant" },
+        { _id: "2", name: "player name", xPos: 0, yPos: 0, direction: 1, skin: "peasant" }
     ]
 };
 
@@ -16,9 +16,14 @@ const playersReducer = (state = initStore, action) => {
                  ...state, 
                  playersArr: [...state.playersArr] 
             };
-            debugger
+            
             if (newState.playersArr[action.sessionId]) {
                 newState.playersArr[action.sessionId].xPos += 10 * action.direction;
+                if (newState.playersArr[action.sessionId].direction !== action.direction){                    
+                    newState.playersArr[action.sessionId].direction = action.direction;
+                    newState.playersArr[action.sessionId].xPos -= 50 * action.direction;
+                }
+                
             }
 
             return {
