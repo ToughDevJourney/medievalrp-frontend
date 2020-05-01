@@ -6,8 +6,7 @@ function Player(props) {
 
     useEffect(() => {        
         let newImage = new window.Image()
-        newImage.src = require('../../../sprites/skins/' + props.skin + '.png');//props.skin;      
-        debugger  
+        newImage.src = require('../../../sprites/skins/' + props.skin + '.png');         
         newImage.onload = () => {
             setImage(newImage);
             console.log("player loaded")

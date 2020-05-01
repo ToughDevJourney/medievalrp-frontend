@@ -9,10 +9,8 @@ function Canvas(props) {
 
     return (
         <Stage width={window.innerWidth} height={window.innerHeight}>
-            <Layer>
+            <Layer >
                 <BG />
-            </Layer>
-            <Layer>
                 {htmlPlayersArr}
             </Layer>
         </Stage>

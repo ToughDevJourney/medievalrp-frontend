@@ -4,10 +4,9 @@ import { Provider } from 'react-redux'
 import * as serviceWorker from './serviceWorker';
 import store from './redux/store';
 import App from './App';
+import './api/socket'
 import './player-interact/player-interact';
 import './index.css';
-
-
 
 ReactDOM.render(
   <React.StrictMode>

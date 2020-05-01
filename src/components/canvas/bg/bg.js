@@ -10,6 +10,7 @@ function BG(props) {
         newImage.onload = () => {
             setImage(newImage);
             console.log("map loaded")
+            console.log(newImage.width)
         };
     }, [props.skin])
 
