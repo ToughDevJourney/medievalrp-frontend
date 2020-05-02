@@ -2,6 +2,7 @@ const SET_SOCKET_ID = 'SET-SOCKET-ID';
 const ADD_PLAYER = 'ADD-PLAYER';
 const MOVE_PLAYER = 'MOVE-PLAYER';
 const ADD_ALL_PLAYERS = 'ADD-ALL-PLAYERS'
+const DELETE_PLAYER = 'DELETE-PLAYER'
 
 let initStore = {
     playersArr: [
@@ -15,32 +16,43 @@ let initStore = {
 
 const playersReducer = (state = initStore, action) => {
     let newState;
+    let playerIndex;
+
     switch (action.type) {
         case ADD_PLAYER:
-            debugger
-            newState = { ...state, playersArr: [...state.playersArr, action.newPlayer] };
-            if (newState.playersArr.length > 1) {
-                [newState.playersArr[newState.playersArr.length - 1], newState.playersArr[newState.playersArr.length - 2]] =
-                    [newState.playersArr[newState.playersArr.length - 2], newState.playersArr[newState.playersArr.length - 1]];
+            if (state.socketId !== "") {
+                playerIndex = state.playersArr.findIndex(el => el.socketId === action.socketId);
+
+                newState = { ...state, playersArr: [...state.playersArr, action.newPlayer] };
+
+                if (newState.playersArr.length > 1) {
+                    [newState.playersArr[newState.playersArr.length - 1], newState.playersArr[newState.playersArr.length - 2]] =
+                        [newState.playersArr[newState.playersArr.length - 2], newState.playersArr[newState.playersArr.length - 1]];
+                }
             }
-            debugger
+
             return { ...newState };
         case ADD_ALL_PLAYERS:
-            debugger
             newState = { ...state, playersArr: [...action.playersArr, ...state.playersArr] };
-            debugger
             return { ...newState };
         case SET_SOCKET_ID:
             newState = { ...state, socketId: action.socketId };
             return { ...newState };
         case MOVE_PLAYER:
-            
+
             newState = { ...state, playersArr: [...state.playersArr] };
 
-            let playerIndex = newState.playersArr.findIndex(el => el.socketId === action.socketId);
+            playerIndex = newState.playersArr.findIndex(el => el.socketId === action.socketId);
             newState.playersArr[playerIndex].direction = action.direction;
             newState.playersArr[playerIndex].xPos = action.xPos;
-            
+
+            return { ...newState };
+        case DELETE_PLAYER:
+
+            newState = { ...state, playersArr: [...state.playersArr] };
+            playerIndex = newState.playersArr.findIndex(el => el.socketId === action.socketId);
+            newState.playersArr.splice(playerIndex, 1);
+
             return { ...newState };
         default:
             return state;
@@ -52,4 +64,5 @@ export const addPlayerActionCreator = (player) => ({ type: ADD_PLAYER, newPlayer
 export const addAllPlayersActionCreator = (playersArr) => ({ type: ADD_ALL_PLAYERS, playersArr });
 export const setSocketIdActionCreator = (socketId) => ({ type: SET_SOCKET_ID, socketId });
 export const movePlayerActionCreator = (socketId, xPos, direction) => ({ type: MOVE_PLAYER, socketId, xPos, direction });
+export const deletePlayerActionCreator = (socketId) => ({ type: DELETE_PLAYER, socketId });
 export default playersReducer;

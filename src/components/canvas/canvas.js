@@ -5,7 +5,7 @@ import BG from './bg/bg';
 
 
 function Canvas(props) {
-    let htmlPlayersArr = props.playersArr.map((el) => <Player key={el._id} {...el} />);
+    let htmlPlayersArr = props.playersArr.map((el) => <Player key={el.socketId} {...el} />);
 
     return (
         <Stage width={window.innerWidth} height={window.innerHeight}>
