@@ -3,7 +3,7 @@ import store from '../redux/store.js'
 import {addPlayerActionCreator, setSocketIdActionCreator, addAllPlayersActionCreator,
     movePlayerActionCreator, deletePlayerActionCreator} from '../redux/players-reducer'
 
-const socket = openSocket('http://localhost:4000');
+const socket = openSocket(`http://${window.location.hostname}:4000`);
 //Ивант подключения самого пользователя
 socket.on('player connection', data => {
     //вместо этой строки будет запрос в базу по айди пользака
