@@ -2,7 +2,7 @@ import React from "react";
 import { Stage, Layer } from "react-konva";
 import Player from './player/player';
 import BG from './bg/bg';
-
+import FG from './fg/fg';
 
 function Canvas(props) {
     let htmlPlayersArr = props.playersArr.map((el) => <Player key={el.socketId} {...el} />);
@@ -12,6 +12,7 @@ function Canvas(props) {
             <Layer >
                 <BG />
                 {htmlPlayersArr}
+                <FG />
             </Layer>
         </Stage>
     );

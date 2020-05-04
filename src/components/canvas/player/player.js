@@ -14,7 +14,7 @@ function Player(props) {
     }, [props.skin])
 
     return (
-        <Image image={image} x={props.xPos} y={props.yPos + 540} scaleX={props.direction}/>
+        <Image image={image} x={props.xPos} y={props.yPos + 585} scaleX={props.direction}/>
     );
 
 }
