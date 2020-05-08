@@ -15,7 +15,7 @@ function BG(props) {
     }, [props.skin])
 
     return (
-        <Image image={image} height="1080" width="1920" />
+        <Image image={image} height={1080} width={1920} />
     );
 
 }

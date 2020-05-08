@@ -12,11 +12,12 @@ socket.on('player connection', data => {
     store.dispatch(setSocketIdActionCreator(data.socketId));
     store.dispatch(addPlayerActionCreator(player));    
     socket.emit('player connected', player);
+
+    //Ивент подключения нового (другого) игрока 
+    socket.on('new player connected', data => { store.dispatch(addPlayerActionCreator(data)); })
+    socket.on('move player', data => { store.dispatch(movePlayerActionCreator(data)); }) 
+    socket.on('delete player', data => { store.dispatch(deletePlayerActionCreator(data)); })
 })  
-//Ивент подключения нового (другого) игрока 
-socket.on('new player connected', player => { store.dispatch(addPlayerActionCreator(player)); })  
-//socket.on('add all players', playersArr => { store.dispatch(addAllPlayersActionCreator(playersArr)); })
-socket.on('move player', player => { debugger; store.dispatch(movePlayerActionCreator(player.socketId, player.xPos, player.direction)); }) 
-socket.on('delete player', socketId => { store.dispatch(deletePlayerActionCreator(socketId)); })
+
 
 export default socket;
