@@ -1,22 +1,33 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Image } from "react-konva";
+// gifler will be imported into global window object
+import "gifler";
 
-function Player(props) {
-    const [image, setImage] = useState(new window.Image());
+const Player = (props) => {
+    let src = require('../../../sprites/skins/' + props.skin + '-idle.gif');
+  const imageRef = React.useRef(null);
+  const canvas = React.useMemo(() => {
+    const node = document.createElement("canvas");
+    return node;
+  }, []);
 
-    useEffect(() => {        
-        let newImage = new window.Image()
-        newImage.src = require('../../../sprites/skins/' + props.skin + '.png');         
-        newImage.onload = () => {
-            setImage(newImage);
-            console.log("player loaded")
-        };
-    }, [props.skin])
+  React.useEffect(() => {
 
-    return (
-        <Image image={image} x={props.xPos} y={props.yPos + 585} scaleX={props.direction}/>
-    );
+    let anim;
+    window.gifler(src).get(a => {
+      anim = a;
+      anim.animateInCanvas(canvas);
+      
+      anim.onDrawFrame = (ctx, frame) => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(frame.buffer, frame.x, frame.y);
+        imageRef.current.getLayer().draw();
+      };
+    });
+    return () => anim.stop();
+  }, [src, canvas]);
 
-}
+  return <Image image={canvas} x={props.xPos} y={props.yPos + 580} scaleX={props.direction} ref={imageRef} />;
+};
 
 export default Player;

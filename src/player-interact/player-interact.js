@@ -16,11 +16,9 @@ function handleKeyDown(e) {
     if (pressedKey !== e.keyCode) {
       switch (e.keyCode) {
         case 37:
-            console.log("left")
           socket.emit("player walk", { socketId, direction: -1 });
           break;
         case 39:
-            console.log("right")
           socket.emit("player walk", { socketId, direction: 1 });
           break;
         default:
@@ -53,4 +51,4 @@ function handleKeyUp(e) {
 
 setInterval(() => {
     isTimeout = true;
-  }, 50);
+  }, 40);

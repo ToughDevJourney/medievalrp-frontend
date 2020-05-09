@@ -1,0 +1,58 @@
+.signup, .signin{
+    background: url('../../../sprites/images/signin-background.png') 100% 100% no-repeat;
+    background-position: center;
+    background-size: cover; /* Масштабируем фон */
+    height: 100%;
+    width: 100%;
+}
+
+.auth-form{
+    height: fit-content;
+    width: 350px;    
+
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    background: white;
+    opacity: 90%;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+
+.auth-form_input:first-child{
+    margin-top: 50px;
+}
+
+.auth-form_input, .auth-form_button{
+    height: 40px;
+    width: 250px;
+
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    padding-left: 10px;
+
+    font-size: 18px;     
+    background-color: #e5e8eb;
+    border: 1px solid #4b5b64;
+    color: #4b5b64;
+}
+
+.auth-form_button{
+    width: 260px;
+    background-color: #799baf;
+    color: white;    
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.auth-form_redirect, .auth-form_redirect-link{
+    text-align: center;
+}
+
+.auth-form_redirect-link{
+    padding-bottom: 40px;
+}
