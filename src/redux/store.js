@@ -1,10 +1,10 @@
 import {createStore, combineReducers} from 'redux';
-import characterReducer from './character-reducer.js';
 import playersReducer from './players-reducer.js';
+import userReducer from './user-reducer.js';
 
 let reducers = combineReducers({
-    characterInfo: characterReducer,
-    playersInfo: playersReducer
+    playersInfo: playersReducer,
+    userInfo: userReducer
 });
 
 let store = createStore(reducers);

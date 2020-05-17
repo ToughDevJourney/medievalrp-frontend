@@ -1,15 +1,13 @@
 import {connect} from 'react-redux';
-import {signUpActionCreator} from '../../../redux/character-reducer';
-import SignUp from './signup';
+import {signup} from '../../../api/axios/axios';
+import SignUpPage from './signup';
 
 let mapDispatchToProps = (dispatch) => {
     return{
-        register: (player) => {
-            dispatch(signUpActionCreator(player));
-        }
+        axiosSignup: (signupInfo, history) => signup(signupInfo, history)
     }
 }
 
-const SignUpContainer = connect(null, mapDispatchToProps)(SignUp);
+const SignUpContainer = connect(null, mapDispatchToProps)(SignUpPage);
 
 export default SignUpContainer;

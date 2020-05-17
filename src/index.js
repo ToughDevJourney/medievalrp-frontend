@@ -4,9 +4,13 @@ import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
 import store from "./redux/store";
 import App from "./App";
-import "./api/socket";
-import "./player-interact/player-interact";
+import { setInterceptors } from './api/axios/axios'
+import {connectUser} from "./api/socket/socket";
+
 import "./index.css";
+
+setInterceptors();
+connectUser();
 
 ReactDOM.render(
   <React.StrictMode>

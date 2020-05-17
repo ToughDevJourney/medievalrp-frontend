@@ -1,25 +1,26 @@
-import store from "../redux/store";
-import socket from "../api/socket";
-
-document.onkeydown = handleKeyDown;
-document.onkeyup = handleKeyUp;
-
 let pressedKey = "";
 let isTimeout = true;
+let socket = null;
+
+export function setSocket(newSocket){  
+  socket = newSocket;
+  if(socket){    
+    document.onkeydown = handleKeyDown;
+    document.onkeyup = handleKeyUp;
+  }
+}
 
 function handleKeyDown(e) {
   if (isTimeout) {
     isTimeout = false;
 
-    let socketId = store.getState().playersInfo.socketId;
-
     if (pressedKey !== e.keyCode) {
       switch (e.keyCode) {
         case 37:
-          socket.emit("player walk", { socketId, direction: -1 });
+          socket.emit("player walk", -1 );
           break;
         case 39:
-          socket.emit("player walk", { socketId, direction: 1 });
+          socket.emit("player walk", 1 );
           break;
         default:
           break;
@@ -31,15 +32,14 @@ function handleKeyDown(e) {
 }
 
 function handleKeyUp(e) {
-  let socketId = store.getState().playersInfo.socketId;
 
   if (e.keyCode === pressedKey) {
     switch (e.keyCode) {
       case 37:
-        socket.emit("player idle", socketId);
+        socket.emit("player idle");
         break;
       case 39:
-        socket.emit("player idle", socketId);
+        socket.emit("player idle");
         break;
       default:
         break;
