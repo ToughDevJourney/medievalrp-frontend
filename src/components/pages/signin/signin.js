@@ -10,13 +10,10 @@ const SignIn = (props) => {
             email: email.current.value,
             password: password.current.value
         }
-        props.axiosSignin(signInInfo, props.history);
+        props.axiosSignin(signInInfo);
     }
 
-    // if (!props.loggedIn) {
-    //   debugger;
-    //   return <Redirect to="/" />;
-    // }
+
 
   return (
     <div className="signin">

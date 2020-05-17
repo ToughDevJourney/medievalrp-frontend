@@ -1,5 +1,5 @@
 import axios from "axios";
-import { connectUser } from "../socket/socket"
+import history from "../../helpers/history"
 import {createAuthHeaderInterceptor, createRefreshInterceptor} from "./interceptors/interceptors";
 
 export let setInterceptors = () => {
@@ -10,7 +10,7 @@ export let setInterceptors = () => {
   axios.interceptors.response.use(null, refreshInteceptor);
 };
 
-export let signup = (signupInfo, history) => {
+export let signup = (signupInfo) => {
   debugger
   axios
   .post(`http://${window.location.hostname}:4000/auth/signup`, {
@@ -26,7 +26,7 @@ export let signup = (signupInfo, history) => {
   });
 }
 
-export let signin = (signinInfo, history) => {
+export let signin = (signinInfo) => {
   debugger
   axios
   .post(`http://${window.location.hostname}:4000/auth/signin`, {
@@ -34,9 +34,9 @@ export let signin = (signinInfo, history) => {
     password: signinInfo.password,
   })
   .then((result) => {  
+    debugger
       localStorage.setItem("accessToken", result.data.accessToken);
       localStorage.setItem("refreshToken", result.data.refreshToken);  
-      connectUser();
       history.push("/");
   })
   .catch((e) => {

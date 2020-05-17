@@ -47,7 +47,9 @@ const playersReducer = (state = initStore, action) => {
       playerIndex = newState.playersArr.findIndex(
         (el) => el.socketId === action.socketId
       );
-      newState.playersArr.splice(playerIndex, 1);
+      if (playerIndex !== -1) {
+        newState.playersArr.splice(playerIndex, 1);
+      }
 
       return { ...newState };
     default:

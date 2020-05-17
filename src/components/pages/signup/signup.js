@@ -13,12 +13,9 @@ const SignUp = ( props ) => {
             nickname: nickname.current.value,
             email: email.current.value,
             password: password.current.value
-        }
-        debugger
-        props.axiosSignup(signupInfo, props.history);
+        }        
+        props.axiosSignup(signupInfo);
     }
-
-   // history.push('/signin');
 
   return (
     <div className="signup">

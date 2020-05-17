@@ -4,7 +4,7 @@ import SignUpPage from './signup';
 
 let mapDispatchToProps = (dispatch) => {
     return{
-        axiosSignup: (signupInfo, history) => signup(signupInfo, history)
+        axiosSignup: (signupInfo) => signup(signupInfo)
     }
 }
 

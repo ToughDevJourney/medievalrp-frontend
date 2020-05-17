@@ -5,6 +5,13 @@ import BG from './bg/bg';
 import FG from './fg/fg';
 
 function Canvas(props) {
+
+    React.useEffect(() => {
+        props.connectUser();  
+      }, []);
+
+      
+
     let htmlPlayersArr = props.playersArr.map((el) => <Player key={el.socketId} {...el} />);
 
     return (

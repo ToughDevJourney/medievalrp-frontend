@@ -1,4 +1,5 @@
 import axios from 'axios';
+import history from "../../../helpers/history"
 
 let refreshTokenPromise;
 
@@ -30,7 +31,7 @@ export const createRefreshInterceptor = (refreshToken, http) => async (error) =>
         console.log(e);
         localStorage.setItem("accessToken", null);
         localStorage.setItem("refreshToken", null);  
-        window.location = '/login';
+        history.push('/signin');
         return Promise.reject(e);
       });
   }

@@ -1,4 +1,5 @@
 import openSocket from "socket.io-client";
+import history from "../../helpers/history"
 import store from "../../redux/store";
 import {
   addPlayerActionCreator,
@@ -9,30 +10,34 @@ import {
 import { setUserInfoActionCreator } from "../../redux/user-reducer";
 import { setSocket } from "./player-interact";
 
+
 let socket;
 
 //вместо этой строки будет запрос в базу по айди пользака
 export function connectUser() {
-  if (localStorage.getItem("accessToken")) {
+  debugger
+  if (localStorage.getItem("accessToken") !== "null") {
+    console.log(localStorage.getItem("accessToken"))
     socket = openSocket(`http://${window.location.hostname}:4000`);
 
     socket.on("request access token", () => {
-      socket.emit(
-        "response access token",
-        localStorage.getItem("accessToken")
-      );
+      socket.emit("response access token", localStorage.getItem("accessToken"));
     });
 
     socket.on("jwt expired", () => {     
-      console.log("expired");
+      localStorage.setItem("accessToken", null);
+      localStorage.setItem("refreshToken", null);  
+      console.log("expired");      
+      history.push('/signin');
     });
 
     socket.on("user not found", () => {
-      console.log("user not found");
+      localStorage.setItem("accessToken", null);
+      localStorage.setItem("refreshToken", null);  
+      history.push('/signin');
     });
 
-    socket.on("player connection", (data) => {
-      debugger
+    socket.on("player connection", (data) => {      
       store.dispatch(setUserInfoActionCreator(data.userInfo));
       store.dispatch(addAllPlayersActionCreator(data.playersArr));
       
@@ -43,11 +48,15 @@ export function connectUser() {
         store.dispatch(addPlayerActionCreator(data));
       });
       socket.on("move player", (data) => {
-        store.dispatch(movePlayerActionCreator(data)); //НЕ ПРОКИДЫВАТЬ АЙДИ, А ТЯНУТЬ ЕГО НА БЕКЕ
+        store.dispatch(movePlayerActionCreator(data)); 
       });
       socket.on("delete player", (data) => {
+        debugger
         store.dispatch(deletePlayerActionCreator(data));
       });
     });
+  }
+  else{
+    history.push('/signin');
   }
 }
