@@ -1,54 +1,53 @@
-let pressedKey = "";
-let isTimeout = true;
-let socket = null;
+import store from '../../redux/store'
 
-export function setSocket(newSocket){  
+let socket = null;
+let status = "idle";
+
+export function setPlayerInteractSocket(newSocket) {
   socket = newSocket;
-  if(socket){    
-    document.onkeydown = handleKeyDown;
-    document.onkeyup = handleKeyUp;
-  }
+
+  document.onkeydown = handleKeyDown;
+  document.onkeyup = handleKeyUp;
 }
 
 function handleKeyDown(e) {
-  if (isTimeout) {
-    isTimeout = false;
-
-    if (pressedKey !== e.keyCode) {
-      switch (e.keyCode) {
-        case 37:
-          socket.emit("player walk", -1 );
-          break;
-        case 39:
-          socket.emit("player walk", 1 );
-          break;
-        default:
-          break;
-      }
-
-      pressedKey = e.keyCode;
-    }
-  }
-}
-
-function handleKeyUp(e) {
-
-  if (e.keyCode === pressedKey) {
+  if (!store.getState().chatInfo.inputFocus) {
     switch (e.keyCode) {
       case 37:
-        socket.emit("player idle");
+        if (status !== "walk-left") {
+          socket.emit("player walk", -1);
+          status = "walk-left";
+        }
         break;
       case 39:
-        socket.emit("player idle");
+        if (status !== "walk-right") {
+          socket.emit("player walk", 1);
+          status = "walk-right";
+        }
         break;
       default:
         break;
     }
+  }  
+}
 
-    pressedKey = "";
+
+function handleKeyUp(e) {
+  switch (e.keyCode) {
+    case 37:
+      if (status !== "walk-right") {
+        socket.emit("player idle");
+        status = "idle";
+      }
+      break;
+    case 39:
+      if (status !== "walk-left") {
+        socket.emit("player idle");
+        status = "idle";
+      }
+      break;
+    default:
+      break;
   }
 }
 
-setInterval(() => {
-    isTimeout = true;
-  }, 40);

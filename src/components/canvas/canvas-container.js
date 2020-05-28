@@ -4,7 +4,8 @@ import Canvas from './canvas.js'
 
 let mapStateToProps = (state) => {
        return {
-              playersArr: state.playersInfo.playersArr
+              playersArr: state.playersInfo.playersArr,
+              playersLoading: state.playersInfo.loading
        }
 }
 

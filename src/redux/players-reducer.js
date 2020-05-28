@@ -3,10 +3,12 @@ const MOVE_PLAYER = "MOVE-PLAYER";
 const ADD_ALL_PLAYERS = "ADD-ALL-PLAYERS";
 const DELETE_PLAYER = "DELETE-PLAYER";
 
+
 let initStore = {
   playersArr: [
     //{ _id: "1", nickname: "player name", xPos: 960, yPos: 0, direction: 1, skin: "peasant" }
   ],
+  loading: true,
 };
 
 const playersReducer = (state = initStore, action) => {
@@ -29,6 +31,7 @@ const playersReducer = (state = initStore, action) => {
       newState = {
         ...state,
         playersArr: [...action.playersArr, ...state.playersArr],
+        loading: false
       };
       return { ...newState };
     case MOVE_PLAYER:
@@ -56,7 +59,6 @@ const playersReducer = (state = initStore, action) => {
       return state;
   }
 };
-
 
 
 export const addPlayerActionCreator = (player) => ({

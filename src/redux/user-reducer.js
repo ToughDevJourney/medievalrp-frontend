@@ -14,7 +14,7 @@ const usersReducer = (state = initStore, action) => {
         state.nickname = action.nickname;
         return state;
     default:
-      return { ...state };
+      return {...state};
   }
 };
 

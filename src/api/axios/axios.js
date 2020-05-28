@@ -33,8 +33,7 @@ export let signin = (signinInfo) => {
     email: signinInfo.email,
     password: signinInfo.password,
   })
-  .then((result) => {  
-    debugger
+  .then((result) => {      
       localStorage.setItem("accessToken", result.data.accessToken);
       localStorage.setItem("refreshToken", result.data.refreshToken);  
       history.push("/");

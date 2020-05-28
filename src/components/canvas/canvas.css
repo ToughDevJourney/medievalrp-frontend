@@ -1,0 +1,14 @@
+.game-area{
+    height: 100%;
+    width: 100%;    
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-area_label-loading{
+    font-size: 50px;
+    color: white;
+    text-shadow: black 0 0 15px;
+}

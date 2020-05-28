@@ -1,4 +1,6 @@
 html, body, #root, .App{
+  background: url('./sprites/images/signin-background.png') 100% 100% no-repeat;
+
   margin: 0;
 
   overflow-y: auto;

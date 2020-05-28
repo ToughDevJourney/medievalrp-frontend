@@ -4,7 +4,10 @@ import { Image, Group, Text, Tag, Label } from "react-konva";
 import "gifler";
 
 const Player = (props) => {
-    let src = require('../../../sprites/skins/' + props.skin + '-idle.gif');
+  let src = require('../../../sprites/skins/' + props.skin + '-idle.gif');
+  let [YShift, setYShift] = React.useState(780);
+  let [nameXPos, setNameXPos] = React.useState(0)
+
   const imageRef = React.useRef(null);
   const canvas = React.useMemo(() => {
     const node = document.createElement("canvas");
@@ -12,13 +15,12 @@ const Player = (props) => {
   }, []);
 
   React.useEffect(() => {
-
     let anim;
     window.gifler(src).get(a => {
       anim = a;
       anim.animateInCanvas(canvas);
-      
-      anim.onDrawFrame = (ctx, frame) => {
+      setYShift(780 - canvas.height)
+      anim.onDrawFrame = (ctx, frame) => {       
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(frame.buffer, frame.x, frame.y);
         imageRef.current.getLayer().draw();
@@ -27,15 +29,19 @@ const Player = (props) => {
     return () => anim.stop();
   }, [src, canvas]);
 
-  let xPos = props.nickname.length / 3;
+  React.useEffect(() => {
+    setNameXPos(-(props.nickname.length * 4));
+    // eslint-disable-next-line
+  }, [])
+
 
   return (
-    <Group x={props.xPos} y={props.yPos + 580}>
-      <Label x={props.direction === 1 ? -xPos : -xPos-70} y={-30} >
-        <Tag fill="white" opacity={0.75}/>
+    <Group x={props.xPos} y={props.yPos + YShift}>
+      <Label x={nameXPos} y={-30} >
+        <Tag fill="white" opacity={0.75} />
         <Text text={props.nickname} fill="black" padding={4} fontSize={17}/>
       </Label>
-      <Image image={canvas} scaleX={props.direction} ref={imageRef} />
+      <Image image={canvas} scaleX={props.direction} ref={imageRef} offsetX={canvas.width / 2}/>
     </Group>
   );
 };
