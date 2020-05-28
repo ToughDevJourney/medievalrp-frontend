@@ -26,8 +26,10 @@ export function connectUser() {
       socket.on("new player connected", (data) => {
         store.dispatch(players.addPlayerActionCreator(data));
       });
-      socket.on("new message", message => {
+      socket.on("new message", message => {        
         store.dispatch(chat.addMessageActionCreator(message));
+        store.dispatch(players.setMessageActionCreator(message))
+        setInterval(() => clearMessageText(message), 5000);
       })
       socket.on("move player", (data) => {
         store.dispatch(players.movePlayerActionCreator(data));
@@ -57,4 +59,14 @@ export function connectUser() {
 export function sendMessage(text) {  
   let nickname = store.getState().userInfo.nickname;
   socket.emit("new message", { nickname, text });
+}
+
+function clearMessageText(message){  
+  let player = store.getState().playersInfo.playersArr.find(
+    (el) => (el.socketId === message.socketId)
+  );
+
+  if(player && player.message.replace(/(\r\n|\n|\r)/gm,"") === message.text){
+    store.dispatch(players.setMessageActionCreator({ ...message, text: ""}))
+  }
 }

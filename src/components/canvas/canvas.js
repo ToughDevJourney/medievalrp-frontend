@@ -7,9 +7,10 @@ import FG from './fg/fg';
 import './canvas.css'
 
 function Canvas(props) {
-  let htmlPlayersArr = props.playersArr.map((el) => <Player key={el._id} {...el} />);
-
-  const [canvasSize, setCanvasSize] = useState({width: 0, height: 0});
+  
+  let htmlPlayersArr = props.playersArr.map((el) => <Player key={el.socketId} {...el} />);
+  let [canvasSize, setCanvasSize] = useState({width: 0, height: 0});
+  
 
   useEffect(() => {
     props.connectUser();

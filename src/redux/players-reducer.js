@@ -1,4 +1,5 @@
 const ADD_PLAYER = "ADD-PLAYER";
+const SET_MESSAGE = "SET-MESSAGE";
 const MOVE_PLAYER = "MOVE-PLAYER";
 const ADD_ALL_PLAYERS = "ADD-ALL-PLAYERS";
 const DELETE_PLAYER = "DELETE-PLAYER";
@@ -16,24 +17,37 @@ const playersReducer = (state = initStore, action) => {
   let playerIndex;
 
   switch (action.type) {
-    case ADD_PLAYER:
-      playerIndex = state.playersArr.findIndex(
-        (el) => el.socketId === action.socketId
-      );
-      
+    case ADD_PLAYER:      
       newState = {
         ...state,
-        playersArr: [action.newPlayer, ...state.playersArr ],
+        playersArr: [...state.playersArr, {...action.newPlayer, message: ""} ],
       };      
 
       return { ...newState };
     case ADD_ALL_PLAYERS:
+      let playersArr = action.playersArr.map(el => ({...el, message: ""}))
+debugger
       newState = {
         ...state,
-        playersArr: [...action.playersArr, ...state.playersArr],
+        playersArr: [...playersArr],
         loading: false
       };
       return { ...newState };
+    case SET_MESSAGE:
+      newState = { ...state, playersArr: [...state.playersArr] };
+
+      playerIndex = newState.playersArr.findIndex(
+        (el) => el.socketId === action.socketId
+      );
+      if (playerIndex !== -1) {
+        if(action.text === ""){
+          newState.playersArr[playerIndex].message = ""
+        }
+        else{
+          newState.playersArr[playerIndex].message = `\n\n${action.text}`;
+        }        
+      }
+      return { ...newState };      
     case MOVE_PLAYER:
       newState = { ...state, playersArr: [...state.playersArr] };
 
@@ -68,6 +82,11 @@ export const addPlayerActionCreator = (player) => ({
 export const addAllPlayersActionCreator = (playersArr) => ({
   type: ADD_ALL_PLAYERS,
   playersArr,
+});
+export const setMessageActionCreator = (message) => ({
+  type: SET_MESSAGE,
+  socketId: message.socketId,
+  text: message.text
 });
 export const movePlayerActionCreator = (player) => ({
   type: MOVE_PLAYER,

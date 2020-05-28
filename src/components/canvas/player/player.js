@@ -6,7 +6,6 @@ import "gifler";
 const Player = (props) => {
   let src = require('../../../sprites/skins/' + props.skin + '-idle.gif');
   let [YShift, setYShift] = React.useState(780);
-  let [nameXPos, setNameXPos] = React.useState(0)
 
   const imageRef = React.useRef(null);
   const canvas = React.useMemo(() => {
@@ -29,18 +28,36 @@ const Player = (props) => {
     return () => anim.stop();
   }, [src, canvas]);
 
-  React.useEffect(() => {
-    setNameXPos(-(props.nickname.length * 4));
-    // eslint-disable-next-line
-  }, [])
 
+
+  let nickname = (
+    <Group y={-20}>
+      <Label>
+        <Tag
+          fill="white"
+          opacity={0.75}
+          pointerDirection="down"
+          pointerWidth={10}
+          pointerHeight={10}
+          shadowColor="black"
+          shadowBlur={20}
+          shadowOpacity={0.3}
+        />
+        <Text
+          text={props.nickname + props.message}
+          align="center"
+          fill="black"
+          padding={7}
+          fontSize={18}
+        />
+      </Label>
+    </Group>
+  );
+ 
 
   return (
     <Group x={props.xPos} y={props.yPos + YShift}>
-      <Label x={nameXPos} y={-30} >
-        <Tag fill="white" opacity={0.75} />
-        <Text text={props.nickname} fill="black" padding={4} fontSize={17}/>
-      </Label>
+      {nickname}
       <Image image={canvas} scaleX={props.direction} ref={imageRef} offsetX={canvas.width / 2}/>
     </Group>
   );

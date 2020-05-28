@@ -6,16 +6,16 @@ const SignUp = ( props ) => {
     let nickname = React.createRef();
     let email = React.createRef();
     let password = React.createRef();
-    let passwordAgain = React.createRef();
+    let passwordAgain = React.createRef();    
 
-    let signup = () => {        
-        let signupInfo = {
-            nickname: nickname.current.value,
-            email: email.current.value,
-            password: password.current.value
-        }        
-        props.axiosSignup(signupInfo);
-    }
+    let signup = () => {
+      let signupInfo = {
+        nickname: nickname.current.value,
+        email: email.current.value,
+        password: password.current.value,
+      };
+      props.axiosSignup(signupInfo);
+    };
 
   return (
     <div className="signup">
