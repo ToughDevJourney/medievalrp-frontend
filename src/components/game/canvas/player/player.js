@@ -4,7 +4,7 @@ import { Image, Group, Text, Tag, Label } from "react-konva";
 import "gifler";
 
 const Player = (props) => {
-  let src = require('../../../sprites/skins/' + props.skin + '-idle.gif');
+  let src = require('../../../../sprites/skins/' + props.skin + '-idle.gif');
   let [YShift, setYShift] = React.useState(780);
 
   const imageRef = React.useRef(null);

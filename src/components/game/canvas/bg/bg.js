@@ -6,7 +6,7 @@ function BG(props) {
 
     useEffect(() => {        
         let newImage = new window.Image()
-        newImage.src = require('../../../sprites/bg/field-bg.png');            
+        newImage.src = require('../../../../sprites/bg/field-bg.png');            
         newImage.onload = () => {
             setImage(newImage);
             console.log("map loaded")

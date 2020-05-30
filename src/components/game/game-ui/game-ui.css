@@ -59,6 +59,9 @@
     background: rgba(0, 0, 0, 0.60); 
 }
 
+.new-message_button:active {
+    background: rgba(0, 0, 0, 0.70); 
+}
 
 textarea::-webkit-scrollbar {
     width: 10px;
@@ -69,3 +72,8 @@ textarea::-webkit-scrollbar {
 textarea::-webkit-scrollbar-thumb {
     background: rgba(0, 0, 0, 0.50);    
 }
+
+.game-ui input:focus, .game-ui textarea:focus, .game-ui button:focus{
+    outline: none;
+}
+

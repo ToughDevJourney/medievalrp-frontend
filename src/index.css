@@ -3,7 +3,8 @@ html, body, #root, .App{
 
   margin: 0;
 
-  overflow-y: auto;
+  overflow: hidden;
 
   height: 100%;
 }
+

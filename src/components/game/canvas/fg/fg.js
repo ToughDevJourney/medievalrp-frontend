@@ -6,7 +6,7 @@ function BG(props) {
 
     useEffect(() => {        
         let newImage = new window.Image()
-        newImage.src = require('../../../sprites/bg/field-fg.png');            
+        newImage.src = require('../../../../sprites/bg/field-fg.png');            
         newImage.onload = () => {
             setImage(newImage);
             console.log("fg loaded")
