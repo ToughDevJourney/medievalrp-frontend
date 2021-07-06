@@ -25,7 +25,8 @@ export const createRefreshInterceptor = (refreshToken, http) => async (error) =>
       })
       .then((result) => {
         localStorage.setItem("accessToken", result.data.accessToken);
-        localStorage.setItem("refreshToken", result.data.refreshToken);  
+        localStorage.setItem("refreshToken", result.data.refreshToken); 
+        console.log("all good", result.data.accessToken) 
       })
       .catch((e) => {
         console.log(e);

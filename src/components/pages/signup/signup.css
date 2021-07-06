@@ -22,23 +22,49 @@
     box-shadow: 0 0 30px rgba(0,0,0,0.5);
 }
 
-.auth-form_input:first-child{
+.auth-form-field:first-child{
     margin-top: 50px;
 }
 
-.auth-form_input, .auth-form_button{
+.auth-form-field{
+    display: block;
+    position: relative;
+    margin: auto;
+
+    margin-top: 10px;
+}
+
+.auth-form-field_input, .auth-form_button{
     height: 40px;
-    width: 250px;
+    width: 260px;
+
+    -webkit-box-sizing: border-box; 
+    -moz-box-sizing: border-box;   
+    box-sizing: border-box;  
 
     display: block;
     margin: auto;
     margin-top: 10px;
-    padding-left: 10px;
+    padding: 0 10px;
 
     font-size: 18px;     
     background-color: #e5e8eb;
     border: 1px solid #4b5b64;
     color: #4b5b64;
+}
+
+.auth-form_input_color-green{
+    background-color: #daebda;
+    border: 1px solid #639b55;
+    color: #639b55;
+}
+
+.auth-form_input_color-red{
+    padding-right: 40px;
+
+    background-color: #ebdada;
+    border: 1px solid #c74343;
+    color: #c74343;
 }
 
 .auth-form_button{
@@ -55,4 +81,75 @@
 
 .auth-form_redirect-link{
     padding-bottom: 40px;
+}
+
+.auth-form-field_error{   
+    display: none; 
+    height: 29px;
+    width: 29px;
+
+    position: absolute;
+    top: 5px;
+    right: 50px;
+    text-align: center;
+    border-radius: 20%;
+
+    cursor: pointer;
+    font-size: 27px;
+    background-color: #ebcbcb;
+    border: 1px solid #a33333;
+    color: #a33333;    
+}
+
+
+
+.auth-form-field_error:after {
+    display: none;
+	height:18px;
+	line-height:18px;
+    
+	content:attr(tip-text);
+	position:absolute;
+    bottom:-40px;
+	left: -50px;
+    padding:5px 8px;
+    z-index:9;
+
+    text-align: center;
+    background:#ebcbcb;
+    border: 1px solid #a33333;
+	color:#a33333;
+	
+	font-size: 0.75em;
+
+	border-radius: 3px;
+	white-space: nowrap;
+	word-wrap:normal;
+}
+.auth-form-field_error:before {    
+    display: none;
+    width:0;
+    height:0;
+    
+    content:'';
+    
+    position:absolute;
+    margin: auto;
+	bottom: -15px;
+	left:calc(50% - 15px);
+	z-index:8;
+
+    border-bottom: 15px solid #a33333;	
+	border-right: 15px solid transparent;
+    border-left: 15px solid transparent;
+    
+	font-size:0;
+}
+
+.auth-form-field_error:hover:after, .auth-form-field_error:hover:before{
+    display: block;
+}
+
+.auth-form input:focus, .auth-form button:focus{
+    outline: 1px solid darkgrey;
 }

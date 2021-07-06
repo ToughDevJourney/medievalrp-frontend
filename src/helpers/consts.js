@@ -1,0 +1,8 @@
+const CONSTS = {
+  NAME: "NAME",
+  EMAIL: "EMAIL",
+  PASSWORD: "PASSWORD",
+  PASSWORD_REPEAT: "PASSWORD_REPEAT",
+};
+
+export default CONSTS;
