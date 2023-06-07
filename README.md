@@ -23,3 +23,5 @@ MedievalRP - многопользовательская role-play игра в п
 - Axios
 - WebSocket
 
+![изображение](https://github.com/ToughDevJourney/medievalrp-frontend/assets/50658791/4be81b51-fbf5-4113-9a6c-605351fd2e04)
+
